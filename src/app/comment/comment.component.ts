@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { CommentService } from '../comment.service';
 import { Comment } from "../comment.interface";
 
 @Component({
@@ -9,10 +9,43 @@ import { Comment } from "../comment.interface";
 })
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
+  editing = false;
+  editValue = '';
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
   ngOnInit() {
   }
 
+  onEdit(){
+    this.editing = true;
+    this.editValue = this.comment.content;
+  }
+
+  onUpdate(){
+    console.log("this.comment:" + this.comment.content)
+    this.commentService.updateComment(this.comment.id, this.editValue)
+        .subscribe(
+          (comment: Comment) => {
+            this.comment = comment;
+            this.editValue = '';
+          }
+        );
+    this.editing = false;
+    
+  }
+  
+  onDelete(){
+    this.commentService.deleteComment(this.comment.id)
+        .subscribe(
+          () => alert('Delted comment ' + this.comment.content)
+        );
+    
+  }
+
+  onCancel(){
+    this.editing = false;
+    this.editValue = '';
+  }
 }
+

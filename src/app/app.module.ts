@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GetCommentsComponent } from './get-comments/get-comments.component';
@@ -19,6 +21,7 @@ import { CommentService } from './comment.service';
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     routing
   ],
   providers: [CommentService],
