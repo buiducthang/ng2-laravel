@@ -25,4 +25,14 @@ export class GetCommentsComponent implements OnInit {
           (error: Response) => console.log(error)
         );
   }
+
+  onDeleted(comment: Comment){
+    const position = this.comments.findIndex(
+      (commentEl : Comment) => {
+        return commentEl.id == comment.id;
+      }
+    );
+
+    this.comments.splice(position, 1);
+  }
 }

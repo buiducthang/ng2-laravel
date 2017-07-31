@@ -1,4 +1,6 @@
 
 <button class="btn btn-primary" (click)="onGetComments()">Get Comments</button>
 <hr>  
-<app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+<app-comment *ngFor="let comment of comments" [comment]="comment" (commentDeleted)="onDeleted($event)">
+
+</app-comment>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentService } from '../comment.service';
 import { Comment } from "../comment.interface";
 
@@ -9,6 +9,8 @@ import { Comment } from "../comment.interface";
 })
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
+  @Output() commentDeleted = new EventEmitter<Comment>();
+
   editing = false;
   editValue = '';
 
@@ -27,7 +29,7 @@ export class CommentComponent implements OnInit {
     this.commentService.updateComment(this.comment.id, this.editValue)
         .subscribe(
           (comment: Comment) => {
-            this.comment = comment;
+            this.comment.content = this.editValue;
             this.editValue = '';
           }
         );
@@ -38,8 +40,11 @@ export class CommentComponent implements OnInit {
   onDelete(){
     this.commentService.deleteComment(this.comment.id)
         .subscribe(
-          () => alert('Delted comment ' + this.comment.content)
-        );
+          () => {
+              this.commentDeleted.emit(this.comment);
+              alert('Delted comment ' + this.comment.content);
+            }
+          );
     
   }
 
