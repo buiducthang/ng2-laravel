@@ -10,13 +10,18 @@ import { CreateCommentComponent } from './create-comment/create-comment.componen
 import { CommentComponent } from './comment/comment.component';
 import { routing } from './app.routing';
 import { CommentService } from './comment.service';
+import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     GetCommentsComponent,
     CreateCommentComponent,
-    CommentComponent
+    CommentComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,7 @@ import { CommentService } from './comment.service';
     FormsModule,
     routing
   ],
-  providers: [CommentService],
+  providers: [CommentService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
